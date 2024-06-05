@@ -27,12 +27,12 @@ if ($result->num_rows > 0) {
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'gunakudo01@gmail.com';
-            $mail->Password = 'axdpxvvfpgorhtim';
+            $mail->Username = 'wildaninafis203@gmail.com';
+            $mail->Password = 'dqayjbxwbevkkbly';
             $mail->Port = 587;
 
             //Recipients
-            $mail->setFrom('gunakudo01@gmail.com', 'Attendance App');
+            $mail->setFrom('wildaninafis203@gmail.com', 'Attendance App');
             $mail->addAddress($siswa_email);
 
             //Content
