@@ -1,15 +1,9 @@
 <?php
 include '../connection.php';
 
-$nis = $_GET['nis'];
+$nis = $_POST['nis'];
 
-$sqlQuery = "
-    SELECT absen.*, k.nama_keterangan 
-    FROM absensisiswa absen 
-    JOIN keterangan k 
-    ON absen.kode_keterangan = k.kode_keterangan 
-    WHERE absen.nis = '$nis'
-";
+$sqlQuery = "SELECT * FROM absensisiswa WHERE nis = '$nis'";
 
 $resultOfQuery = $connectNow->query($sqlQuery);
 
