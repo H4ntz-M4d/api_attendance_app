@@ -9,7 +9,7 @@ SUM(CASE WHEN nama_keterangan = 'Sakit' THEN 1 ELSE 0 END) AS jumlah_sakit,
 SUM(CASE WHEN nama_keterangan = 'Izin' THEN 1 ELSE 0 END) AS jumlah_izin,
 SUM(CASE WHEN nama_keterangan = 'Alpha' THEN 1 ELSE 0 END) AS jumlah_alpha
 FROM 
-absensisiswa";
+absensisiswa WHERE nis = '$nis'";
 
 $resultOfQuery = $connectNow->query($sqlQuery);
 
