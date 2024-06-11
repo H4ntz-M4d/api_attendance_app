@@ -2,6 +2,6 @@
 $serverHost = "localhost";
 $user = "root";
 $password = "";
-$database = "attendance_app";
+$database = "db_attendance_app";
 
 $connectNow = new mysqli($serverHost, $user, $password, $database);
