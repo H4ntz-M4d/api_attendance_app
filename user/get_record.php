@@ -2,8 +2,8 @@
 include '../connection.php';
 
 $nis = $_POST['nis'];
-
 $sqlQuery = "SELECT * FROM absensisiswa WHERE nis = $nis";
+
 
 $resultOfQuery = $connectNow->query($sqlQuery);
 
