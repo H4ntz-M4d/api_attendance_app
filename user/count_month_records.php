@@ -3,6 +3,17 @@ include '../connection.php';
 
 $nis = $_POST['nis'];
 $date = $_POST['date'];
+$role = $_POST['role'];
+$table = '';
+$id = '';
+
+if ($role == 'guru') {
+  $table = 'absensiguru';
+  $id = 'nip';
+} else if($role == 'siswa') {
+  $table = 'absensisiswa';
+  $id = 'nis';
+}
 
 // Array to map month names to numbers
 $months = [
@@ -35,7 +46,7 @@ SUM(CASE WHEN nama_keterangan = 'Sakit' THEN 1 ELSE 0 END) AS jumlah_sakit,
 SUM(CASE WHEN nama_keterangan = 'Izin' THEN 1 ELSE 0 END) AS jumlah_izin,
 SUM(CASE WHEN nama_keterangan = 'Alpha' THEN 1 ELSE 0 END) AS jumlah_alpha
 FROM 
-absensisiswa WHERE nis = '$nis' AND DATE_FORMAT(kalender_absensi, '%m-%Y') = '$formattedDate'";
+$table WHERE $id = '$nis' AND DATE_FORMAT(kalender_absensi, '%m-%Y') = '$formattedDate'";
 
 $resultOfQuery = $connectNow->query($sqlQuery);
 
