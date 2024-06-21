@@ -1,9 +1,21 @@
 <?php
 include '../connection.php';
 
-$nis = $_GET['nis'];
+$nis = $_POST['nis'];
+$role = $_POST['role'];
 
-$sqlQuery = "SELECT * FROM siswa WHERE nis = '$nis'";
+$table = '';
+$id = '';
+
+if ($role == 'guru') {
+  $table = 'guru';
+  $id = 'nip';
+} else if($role == 'siswa') {
+  $table = 'siswa';
+  $id = 'nis';
+}
+
+$sqlQuery = "SELECT * FROM $table WHERE $id = '$nis'";
 $resultOfQuery = $connectNow->query($sqlQuery);
 
 if ($resultOfQuery->num_rows > 0) {

@@ -2,10 +2,22 @@
 include '../connection.php';
 
 $nis = $_POST['nis'];
+$role = $_POST['role'];
 $alamat = $_POST['alamat'];
 $phone = $_POST['phone'];
 
-$sqlQuery = "UPDATE siswa SET alamat = '$alamat', phone = '$phone' WHERE nis = '$nis'";
+$table = '';
+$id = '';
+
+if ($role == 'guru') {
+  $table = 'guru';
+  $id = 'nip';
+} else if($role == 'siswa') {
+  $table = 'siswa';
+  $id = 'nis';
+}
+
+$sqlQuery = "UPDATE $table SET alamat = '$alamat', phone = '$phone' WHERE $id = '$nis'";
 
 if ($connectNow->query($sqlQuery) === TRUE) {
     echo json_encode(array("success" => true));
