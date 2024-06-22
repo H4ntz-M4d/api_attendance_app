@@ -19,6 +19,7 @@ if ($resultOfQuery->num_rows > 0) //allow user to login
 
         $userRecord = array();
         $userRecord[] = $rowFound;
+        $userRecord[0]['role'] = "siswa";
 
         echo json_encode(
             array(
@@ -38,6 +39,7 @@ if ($resultOfQuery->num_rows > 0) //allow user to login
 
         $userRecord = array();
         $userRecord[] = $rowFound;
+        $userRecord[0]['role'] = "guru";
 
         echo json_encode(
             array(

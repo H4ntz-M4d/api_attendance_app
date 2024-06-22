@@ -2,8 +2,19 @@
 include '../connection.php';
 
 $nis = $_POST['nis'];
-$sqlQuery = "SELECT * FROM absensisiswa WHERE nis = $nis";
+$role = $_POST['role'];
+$table = '';
+$id = '';
 
+if ($role == 'guru') {
+  $table = 'absensiguru';
+  $id = 'nip';
+} else if($role == 'siswa') {
+  $table = 'absensisiswa';
+  $id = 'nis';
+}
+
+$sqlQuery = "SELECT * FROM $table WHERE $id = '$nis'";
 
 $resultOfQuery = $connectNow->query($sqlQuery);
 

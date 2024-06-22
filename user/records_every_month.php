@@ -2,6 +2,8 @@
 include '../connection.php';
 
 $nis = $_POST['nis'];
+$year = $_POST['year'];
+$month = $_POST['month'];
 $role = $_POST['role'];
 $table = '';
 $id = '';
@@ -14,13 +16,8 @@ if ($role == 'guru') {
   $id = 'nis';
 }
 
-$sqlQuery = "SELECT 
-SUM(CASE WHEN nama_keterangan = 'Hadir' THEN 1 ELSE 0 END) AS jumlah_hadir,
-SUM(CASE WHEN nama_keterangan = 'Sakit' THEN 1 ELSE 0 END) AS jumlah_sakit,
-SUM(CASE WHEN nama_keterangan = 'Izin' THEN 1 ELSE 0 END) AS jumlah_izin,
-SUM(CASE WHEN nama_keterangan = 'Alpha' THEN 1 ELSE 0 END) AS jumlah_alpha
-FROM 
-$table WHERE $id = '$nis'";
+
+$sqlQuery = "SELECT * FROM $table WHERE $id = '$nis' AND DATE_FORMAT(kalender_absensi, '%m-%Y') = '$month-$year'";
 
 $resultOfQuery = $connectNow->query($sqlQuery);
 
@@ -32,8 +29,7 @@ if ($resultOfQuery->num_rows > 0) {
   echo json_encode(
     array(
         "success" => true,
-        "role" => $role,
-        "userData" => $data[0],
+        "events" => $data,
     )
   );
 } else {
@@ -42,5 +38,4 @@ if ($resultOfQuery->num_rows > 0) {
 
 
 $connectNow->close();
-
 ?>
