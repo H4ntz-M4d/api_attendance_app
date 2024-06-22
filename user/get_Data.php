@@ -22,6 +22,7 @@ if ($resultOfQuery->num_rows > 0) {
     $userRecord = array();
     while($rowFound = $resultOfQuery->fetch_assoc()) {
         $userRecord[] = $rowFound;
+        $userRecord[0]['role'] = $role; 
     }
     echo json_encode(
         array(

@@ -8,16 +8,31 @@ require '../vendor/autoload.php';
 
 $nis = $_POST['nis'];
 $email_lama = $_POST['email_lama'];
+$role = $_POST['role'];
+$table = '';
+$table_email = '';
+$id = '';
+
+if ($role == 'guru') {
+    $table = 'guru';
+    $id = 'nip';
+    $table_email = 'guru_email';
+  } else if($role == 'siswa') {
+    $table = 'siswa';
+    $id = 'nis';
+    $table_email = 'siswa_email';
+  }
 
 
-$query = "SELECT siswa_email FROM siswa WHERE nis='$nis'";
+
+$query = "SELECT $table_email FROM $table WHERE $id ='$nis'";
 $result = $connectNow->query($query);
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    if ($row['siswa_email'] === $email_lama) {
+    if ($row[$table_email] === $email_lama) {
         $verifikasi_kode = rand(1000, 9999);
-        $update_query = "UPDATE siswa SET verifikasi_kode='$verifikasi_kode' WHERE nis='$nis'";
+        $update_query = "UPDATE $table SET verifikasi_kode='$verifikasi_kode' WHERE $id='$nis'";
 
         if ($connectNow->query($update_query) === TRUE) {
             $mail = new PHPMailer(true);
