@@ -7,6 +7,7 @@ use PHPMailer\PHPMailer\Exception;
 require '../vendor/autoload.php';
 
 $nis = $_POST['nis'];
+$role = $_POST['role'];
 $email_lama = $_POST['email_lama'];
 $role = $_POST['role'];
 $table = '';
@@ -30,7 +31,9 @@ $result = $connectNow->query($query);
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
+
     if ($row[$table_email] === $email_lama) {
+
         $verifikasi_kode = rand(1000, 9999);
         $update_query = "UPDATE $table SET verifikasi_kode='$verifikasi_kode' WHERE $id='$nis'";
 
