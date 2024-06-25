@@ -7,17 +7,31 @@ use PHPMailer\PHPMailer\Exception;
 require '../vendor/autoload.php';
 
 $nis = $_POST['nis'];
+$role = $_POST['role'];
 $email_lama = $_POST['email_lama'];
 
+$table = '';
+$id = '';
+$email = '';
 
-$query = "SELECT siswa_email FROM siswa WHERE nis='$nis'";
+if ($role == 'guru') {
+  $table = 'guru';
+  $id = 'nip';
+  $email = 'guru_email';
+} else if($role == 'siswa') {
+  $table = 'siswa';
+  $id = 'nis';
+  $email = 'siswa_email';
+}
+
+$query = "SELECT $email FROM $table WHERE $id='$nis'";
 $result = $connectNow->query($query);
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    if ($row['siswa_email'] === $email_lama) {
+    if ($row[$email] === $email_lama) {
         $verifikasi_kode = rand(1000, 9999);
-        $update_query = "UPDATE siswa SET verifikasi_kode='$verifikasi_kode' WHERE nis='$nis'";
+        $update_query = "UPDATE $table SET verifikasi_kode='$verifikasi_kode' WHERE $id='$nis'";
 
         if ($connectNow->query($update_query) === TRUE) {
             $mail = new PHPMailer(true);

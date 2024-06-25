@@ -54,4 +54,3 @@ if ($resultOfQuery->num_rows > 0) //allow user to login
 }else {
     echo json_encode(['status' => 'success', 'message' => 'NIS/NIP Tidak Ditemukan']);
 }
-
