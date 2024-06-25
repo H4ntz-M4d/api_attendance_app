@@ -9,27 +9,31 @@ require '../vendor/autoload.php';
 $nis = $_POST['nis'];
 $role = $_POST['role'];
 $email_lama = $_POST['email_lama'];
-
+$role = $_POST['role'];
 $table = '';
+$table_email = '';
 $id = '';
-$email = '';
 
 if ($role == 'guru') {
-  $table = 'guru';
-  $id = 'nip';
-  $email = 'guru_email';
-} else if($role == 'siswa') {
-  $table = 'siswa';
-  $id = 'nis';
-  $email = 'siswa_email';
-}
+    $table = 'guru';
+    $id = 'nip';
+    $table_email = 'guru_email';
+  } else if($role == 'siswa') {
+    $table = 'siswa';
+    $id = 'nis';
+    $table_email = 'siswa_email';
+  }
 
-$query = "SELECT $email FROM $table WHERE $id='$nis'";
+
+
+$query = "SELECT $table_email FROM $table WHERE $id ='$nis'";
 $result = $connectNow->query($query);
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    if ($row[$email] === $email_lama) {
+
+    if ($row[$table_email] === $email_lama) {
+
         $verifikasi_kode = rand(1000, 9999);
         $update_query = "UPDATE $table SET verifikasi_kode='$verifikasi_kode' WHERE $id='$nis'";
 
